@@ -8,6 +8,7 @@ import Generator.Tools.DocumentParser;
 public class Main {
     public static void main(String args[]){
         BackendClassCreator creator = new BackendClassCreator("project.xml");
+        creator.copyServerFiles();
         creator.createEntityFile();
         // DocumentParser parser = new DocumentParser("project.xml");
         // System.out.println(parser.getClassName());

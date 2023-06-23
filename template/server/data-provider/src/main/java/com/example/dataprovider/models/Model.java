@@ -7,5 +7,5 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "dataprovider.y%s")
+@Table(name = "dataprovider.%s")
 public class %s {
