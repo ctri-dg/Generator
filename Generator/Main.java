@@ -1,15 +1,13 @@
 package Generator;
 
-import Generator.Models.Attribute;
-import Generator.Models.Operation;
 import Generator.Tools.BackendClassCreator;
-import Generator.Tools.DocumentParser;
 
 public class Main {
     public static void main(String args[]){
         BackendClassCreator creator = new BackendClassCreator("project.xml");
         creator.copyServerFiles();
         creator.createEntityFile();
+        creator.createRepositoryFile();
         // DocumentParser parser = new DocumentParser("project.xml");
         // System.out.println(parser.getClassName());
         // System.out.println("Attributes : ");

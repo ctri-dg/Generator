@@ -2,28 +2,33 @@ package Generator.Tools;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import Generator.Models.Attribute;
+import Generator.Models.Operation;
+import Generator.Models.Parameter;
 
 public class BackendClassCreator {
 
     DocumentParser parser;
     Map<String, String> dataTypeMap;
+    Map<String, String> primitiveClassMap;
 
     public BackendClassCreator(String filename) {
         parser = new DocumentParser(filename);
         dataTypeMap = new HashMap<String, String>();
-        dataTypeMap.put("string", "string");
+        dataTypeMap.put("string", "String");
         dataTypeMap.put("long", "long");
         dataTypeMap.put("int", "int");
+        primitiveClassMap = new HashMap<String, String>();
+        primitiveClassMap.put("string", "String");
+        primitiveClassMap.put("long", "Long");
+        primitiveClassMap.put("int", "Int");
     }
 
     private void copyDir(Path src, Path dest) throws IOException {
@@ -105,6 +110,69 @@ public class BackendClassCreator {
                                 "\tprivate %s %s;\n",
                                 dataTypeMap.get(attribute.getType()),
                                 attribute.getName()));
+            }
+            writer.write("\n}\n");
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("error : " + e.getMessage());
+        }
+    }
+
+    public void createRepositoryFile(){
+        String className = parser.getClassName();
+        List<Operation> operations = parser.getOperations();
+        List<Attribute> attributes = parser.getAttributes();
+        List<String> lines = new ArrayList<String>();
+
+        //reading the template file
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(
+                    "./template/server/data-provider/src/main/java/com/example/dataprovider/repositories/Repository.java"));
+            String line = reader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println("error : " + e.getMessage());
+        }
+
+        //wiping the existing file in target
+        File currentFile = new File("./output/server/data-provider/src/main/java/com/example/dataprovider/repositories/Repository.java");
+        currentFile.delete();
+
+        //writing the new file
+        try {
+            File file = new File(String.format("./output/server/data-provider/src/main/java/com/example/dataprovider/repositories/%sRepository.java", className));
+            FileWriter writer = new FileWriter(file);
+            for (int i = 0; i < 7; i++) {
+                writer.write(lines.get(i));
+                writer.write("\n");
+            }
+            Attribute idAttribute = null;
+            for(Attribute attr : attributes){
+                if(attr.getIsId().equals("true")){
+                    idAttribute = attr; break;
+                }
+            }
+            writer.write(String.format(lines.get(7), className, className, primitiveClassMap.get(idAttribute.getType())));
+            writer.write("\n");
+
+            for (Operation operation : operations) {
+                String returnType = operation.getReturnType();
+                if(operation.getTypeModifier().equals("[]")){
+                    returnType = String.format("List<%s>", operation.getReturnType());
+                }
+
+                String line = String.format("\t%s %s(", returnType, operation.getName());
+                for(int i=0;i<operation.getParameters().size();i++){
+                    Parameter param = operation.getParameters().get(i);
+                    if(i==operation.getParameters().size()-1){
+                        line += String.format("%s %s", dataTypeMap.get(param.getType()), param.getName());
+                    }else line += String.format("%s %s, ", dataTypeMap.get(param.getType()), param.getName());
+                }
+                line += ");\n";
+                writer.write(line);
             }
             writer.write("\n}\n");
             writer.close();

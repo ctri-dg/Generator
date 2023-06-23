@@ -3,7 +3,7 @@ package com.example.dataprovider.controllers;
 
 import com.example.dataprovider.exceptions.ResourceNotFoundException;
 import com.example.dataprovider.models.Branch;
-import com.example.dataprovider.repositories.BranchRepository;
+import com.example.dataprovider.repositories.Repository;
 import com.example.dataprovider.requests.DataRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @CrossOrigin
 public class BranchController {
     @Autowired
-    private BranchRepository branchRepository;
+    private Repository branchRepository;
 
     @GetMapping
     private List<Branch> getAllBranches(){

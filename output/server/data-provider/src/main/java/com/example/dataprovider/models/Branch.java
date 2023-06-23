@@ -11,9 +11,9 @@ public class Branch {
 	@Id
 	@GeneratedValue
 	private long id;
-	private string city;
-	private string area;
-	private string manager;
+	private String city;
+	private String area;
+	private String manager;
 	private int employees;
 
 }

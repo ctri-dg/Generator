@@ -30,8 +30,11 @@ public class Operation {
     public String getName(){
         return name;
     }
-    public String getType(){
+    public String getReturnType(){
         return returnType;
+    }
+    public String getTypeModifier(){
+        return typeModifier;
     }
     public List<Parameter> getParameters(){
         return parameters;
@@ -39,7 +42,7 @@ public class Operation {
     public void setName(String name){
         this.name = name;
     }
-    public void setType(String returnType){
+    public void setReturnType(String returnType){
         this.returnType = returnType;
     }
     public void addParam(Parameter attr){

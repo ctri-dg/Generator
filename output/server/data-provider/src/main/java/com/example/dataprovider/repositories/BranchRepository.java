@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BranchRepository extends JpaRepository<Branch, Long> {
-    List<Branch> findByCity(String city);
+	List<Branch> findByCity(String city);
+	List<Branch> findByArea(String area);
+	List<Branch> findByCityAndArea(String city, String area);
 
-    List<Branch> findByArea(String area);
-
-    List<Branch> findByManager(String manager);
 }
