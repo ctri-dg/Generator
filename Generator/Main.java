@@ -9,6 +9,7 @@ public class Main {
         creator.createEntityFile();
         creator.createRepositoryFile();
         creator.createRequestFiles();
+        creator.createControllerFile();
         // DocumentParser parser = new DocumentParser("project.xml");
         // System.out.println(parser.getClassName());
         // System.out.println("Attributes : ");

@@ -1,74 +1,60 @@
 package com.example.dataprovider.controllers;
-
-
 import com.example.dataprovider.exceptions.ResourceNotFoundException;
-import com.example.dataprovider.models.Branch;
-import com.example.dataprovider.repositories.Repository;
-import com.example.dataprovider.requests.Request;
+import com.example.dataprovider.models.*;
+import com.example.dataprovider.repositories.*;
+import com.example.dataprovider.requests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-
 @RestController
 @RequestMapping("/data-provider/v1/branch")
 @CrossOrigin
 public class BranchController {
-    @Autowired
-    private Repository branchRepository;
 
-    @GetMapping
-    private List<Branch> getAllBranches(){
-        return branchRepository.findAll();
-    }
+	@Autowired
+	private BranchRepository resourceRepository;
 
-    @PostMapping
-    private Branch createBranch(@RequestBody Branch branch){
-        return branchRepository.save(branch);
-    }
+	@GetMapping
+		private List<Branch> getAllBranches(){
+			return resourceRepository.findAll();
+}
 
-    @PutMapping
-    private Branch updateBranch(@RequestBody Branch branch){
-        return branchRepository.save(branch);
-    }
+	@PostMapping
+		private Branch createBranch(@RequestBody Branch branch){
+			return resourceRepository.save(branch);
+}
 
-    @DeleteMapping("/{id}")
-    private void deleteBranchById(@PathVariable long id){
-        branchRepository.deleteById(id);
-    }
+	@PutMapping
+		private Branch updateBranch(@RequestBody Branch branch){
+			return resourceRepository.save(branch);
+}
 
-    @GetMapping("/{id}")
-    private Branch getBranchById(@PathVariable long id){
-        Optional<Branch> branch  = branchRepository.findById(id);
-        if(branch.isEmpty()){
-            throw new ResourceNotFoundException("Invalid branch id");
-        }
-        return branch.get();
-    }
+	@DeleteMapping("/{id}")
+		private void deleteBranchByid(@PathVariable long id){
+			resourceRepository.deleteById(id);
+}
 
-    @PostMapping("/id")
-    private List<Branch> getBranchesById(@RequestBody Request dataRequest){
-        List<Branch> ret = new ArrayList<Branch>();
-        Optional<Branch> branch = branchRepository.findById(Long.parseLong(dataRequest.getParameter()));
-        branch.ifPresent(ret::add);
-        return ret;
-    }
-    @PostMapping("/city")
-    private List<Branch> getBranchesByCity(@RequestBody Request dataRequest){
-        return branchRepository.findByCity(dataRequest.getParameter());
-    }
+	@GetMapping("/{id}")
+		private Branch getBranchById(@PathVariable long id){
+			Optional<Branch> branch = resourceRepository.findById(id);
 
-    @PostMapping("/area")
-    private List<Branch> getBranchesByArea(@RequestBody Request dataRequest){
-        return branchRepository.findByArea(dataRequest.getParameter());
-    }
-
-    @PostMapping("/manager")
-    private List<Branch> getBranchesByManager(@RequestBody Request dataRequest){
-        return branchRepository.findByManager(dataRequest.getParameter());
-    }
-
+			if(branch.isEmpty()){
+				throw new ResourceNotFoundException("Invalid Branch Id");
+}
+			return branch.get();
+}
+	@PostMapping("/{city}")
+		private List<Branch> getBranchesByCity(@RequestBody CityRequest cityRequest){
+			return resourceRepository.findByCity(cityRequest.getCity());
+}
+	@PostMapping("/{area}")
+		private List<Branch> getBranchesByArea(@RequestBody AreaRequest areaRequest){
+			return resourceRepository.findByArea(areaRequest.getArea());
+}
+	@PostMapping("/{cityarea}")
+		private List<Branch> getBranchesByCityArea(@RequestBody CityAreaRequest cityareaRequest){
+			return resourceRepository.findByCityAndArea(cityareaRequest.getCity() ,cityareaRequest.getArea());
+}
 }

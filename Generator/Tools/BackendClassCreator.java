@@ -235,4 +235,118 @@ public class BackendClassCreator {
             createRequestFile(operation.getParameters());
         }
     }
+        public String toCamelCase(String a)
+    {
+        char ch[]=a.toCharArray();
+        int n=a.length();
+        ch[0]=Character.toUpperCase(ch[0]);
+        return String.valueOf(ch,0,n);
+    }
+  public void createControllerFile()
+{
+       String className = parser.getClassName();
+        List<Attribute> attributes = parser.getAttributes();
+        List<String> lines = new ArrayList<String>();
+        List<Operation> operations = parser.getOperations();
+        //reading the template file
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("./template/server/data-provider/src/main/java/com/example/dataprovider/controllers/Controller.java"));
+            String line = reader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println("error : " + e.getMessage());
+        }
+
+        //wiping the existing file in target
+        File currentFile = new File("./output/server/data-provider/src/main/java/com/example/dataprovider/controllers/Controller.java");
+        currentFile.delete();
+
+        //writing the new file
+       
+        try {
+            File file = new File(String.format("./output/server/data-provider/src/main/java/com/example/dataprovider/controllers/%sController.java",className));
+            FileWriter writer = new FileWriter(file);
+            for (int i = 0; i < 13; i++) {
+                writer.write(lines.get(i));
+                writer.write("\n");
+            }
+            writer.write(String.format(lines.get(13), className));
+            writer.write("\n");
+            writer.write("\n\t@Autowired\n");
+            String reponame="resourceRepository";
+            String elementType="";
+            writer.write(String.format("\tprivate %sRepository %s;\n",className,reponame));
+            writer.write("\n\t@GetMapping\n");
+            String returnType="";
+            for (Operation operation : operations) {
+                returnType = operation.getReturnType();
+                if(operation.getTypeModifier().equals("[]")){
+                    elementType=operation.getReturnType();
+                    returnType = String.format("List<%s>",elementType );
+                    break;}
+            }
+
+            writer.write(String.format("\t\tprivate %s getAllBranches(){\n",returnType));
+            writer.write(String.format("\t\t\treturn %s.findAll();\n}\n",reponame));
+    
+            writer.write(String.format("\n\t@PostMapping\n"));
+            writer.write(String.format("\t\tprivate %s create%s(@RequestBody %s %s){\n",elementType,elementType,elementType,elementType.toLowerCase()));
+            writer.write(String.format("\t\t\treturn %s.save(%s);\n}\n",reponame,elementType.toLowerCase()));
+     
+            writer.write(String.format("\n\t@PutMapping\n"));
+            writer.write(String.format("\t\tprivate %s update%s(@RequestBody %s %s){\n",elementType,elementType,elementType,elementType.toLowerCase()));
+            writer.write(String.format("\t\t\treturn %s.save(%s);\n}\n",reponame,elementType.toLowerCase()));
+
+            for (Attribute attribute : attributes) {
+                String aName=attribute.getName();
+                String aType=attribute.getType();
+                if (attribute.getIsId().equals("true")) {
+            writer.write(String.format("\n\t@DeleteMapping(\"/{%s}\")\n",aName.toLowerCase()));
+            writer.write(String.format("\t\tprivate void delete%sBy%s(@PathVariable %s %s){\n",elementType,aName,aType,aName));
+            writer.write(String.format("\t\t\t%s.deleteById(%s);\n}\n",reponame,aName.toLowerCase()));
+            
+            writer.write(String.format("\n\t@GetMapping(\"/{%s}\")\n",aName));
+            writer.write(String.format("\t\tprivate %s get%sBy%s(@PathVariable %s %s){\n",elementType,elementType,toCamelCase(aName),aType,aName));
+            writer.write(String.format("\t\t\tOptional<%s> %s = %s.findById(%s);\n\n",elementType,elementType.toLowerCase(),reponame,aName));
+            writer.write(String.format("\t\t\tif(%s.isEmpty()){\n",elementType.toLowerCase()));
+            writer.write(String.format("\t\t\t\tthrow new ResourceNotFoundException(\"Invalid Branch Id\");\n}\n"));
+            writer.write(String.format("\t\t\treturn %s.get();\n}",elementType.toLowerCase()));           
+        }}
+
+            for (Operation operation : operations) {
+                System.out.println(operation);
+                 String concatParam="";
+                for (int i = 0; i < operation.getParameters().size(); i++) {
+                 Parameter param = operation.getParameters().get(i);
+                 concatParam+=toCamelCase(param.getName());   
+                }
+                writer.write(String.format("\n\t@PostMapping(\"/{%s}\")\n",concatParam.toLowerCase()));
+                writer.write(String.format("\t\tprivate %s get%sesBy%s(@RequestBody %sRequest %sRequest){\n",returnType,elementType,toCamelCase(concatParam),toCamelCase(concatParam),concatParam.toLowerCase()));
+                String totalParam="";
+                    for (int i = 0; i < operation.getParameters().size(); i++) {
+                 Parameter param = operation.getParameters().get(i);
+                 if(i==operation.getParameters().size()-1)
+                 {
+                 totalParam+=String.format("%sRequest.get%s()",concatParam.toLowerCase(),toCamelCase(param.getName()));   
+                 }
+                else
+            {
+            totalParam+=String.format("%sRequest.get%s() ,",concatParam.toLowerCase(),toCamelCase(param.getName()));  }
+        }
+                
+                writer.write(String.format("\t\t\treturn %s.%s(%s);\n}", reponame,operation.getName(),totalParam));    
+            }
+
+          
+            writer.write("\n}\n");
+            writer.close();
+        }
+        catch (Exception e) {
+            System.out.println("error : " + e.getMessage());
+        }
+    
+}
 }
