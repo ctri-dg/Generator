@@ -4,7 +4,7 @@ package com.example.dataprovider.controllers;
 import com.example.dataprovider.exceptions.ResourceNotFoundException;
 import com.example.dataprovider.models.Branch;
 import com.example.dataprovider.repositories.Repository;
-import com.example.dataprovider.requests.DataRequest;
+import com.example.dataprovider.requests.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,24 +50,24 @@ public class BranchController {
     }
 
     @PostMapping("/id")
-    private List<Branch> getBranchesById(@RequestBody DataRequest dataRequest){
+    private List<Branch> getBranchesById(@RequestBody Request dataRequest){
         List<Branch> ret = new ArrayList<Branch>();
         Optional<Branch> branch = branchRepository.findById(Long.parseLong(dataRequest.getParameter()));
         branch.ifPresent(ret::add);
         return ret;
     }
     @PostMapping("/city")
-    private List<Branch> getBranchesByCity(@RequestBody DataRequest dataRequest){
+    private List<Branch> getBranchesByCity(@RequestBody Request dataRequest){
         return branchRepository.findByCity(dataRequest.getParameter());
     }
 
     @PostMapping("/area")
-    private List<Branch> getBranchesByArea(@RequestBody DataRequest dataRequest){
+    private List<Branch> getBranchesByArea(@RequestBody Request dataRequest){
         return branchRepository.findByArea(dataRequest.getParameter());
     }
 
     @PostMapping("/manager")
-    private List<Branch> getBranchesByManager(@RequestBody DataRequest dataRequest){
+    private List<Branch> getBranchesByManager(@RequestBody Request dataRequest){
         return branchRepository.findByManager(dataRequest.getParameter());
     }
 

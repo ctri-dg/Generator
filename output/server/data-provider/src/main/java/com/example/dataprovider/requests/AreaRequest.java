@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DataRequest {
-    private String parameter;
+public class AreaRequest {
+	string area;
 }
