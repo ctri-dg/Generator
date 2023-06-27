@@ -1,4 +1,8 @@
-class ModelEntityClient {
-    
+class Branch{
+	 city;
+	 area;
+	 manager;
+	 employees;
+	 revenue;
 }
-export default ModelEntityClient;
+ export default Branch;
