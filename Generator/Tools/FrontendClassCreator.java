@@ -86,11 +86,8 @@ public class FrontendClassCreator {
         }
 
         File currentFile = new File("./output/client/src/screens/Model/ModelDetailsClient.jsx");
-        File currentFile = new File("./output/client/src/screens/Model/ModelDetailsClient.jsx");
+        
         currentFile.delete();
-
-        try {
-            File file = new File(String.format("./output/client/src/screens/Model/ModelDetailsClient.jsx"));
         try{
             File file = new File("./output/client/src/screens/Model/ModelDetailsClient.jsx");
             FileWriter writer = new FileWriter(file);
