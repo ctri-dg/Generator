@@ -87,12 +87,13 @@ public class FrontendClassCreator {
             System.out.println("error : " + e.getMessage());
         }
 
-        File currentFile = new File("./template/client/src/screens/Model/ModelDetailsclient.jsx");
+        File currentFile = new File("./output/client/src/screens/Model/ModelDetailsClient.jsx");
         currentFile.delete();
 
         try{
-            File file = new File(String.format("./template/client/src/screens/Model/ModelDetailsClient.jsx"));
+            File file = new File("./output/client/src/screens/Model/ModelDetailsClient.jsx");
             FileWriter writer = new FileWriter(file);
+            
             writer.write(String.format(lines.get(0),className ));
             writer.write("\n");
             for (Attribute attribute : attributes)
@@ -160,31 +161,19 @@ public class FrontendClassCreator {
         try
         {
            File file = new File(String.format("./output/client/src/screens/Create/create.jsx"));
-           FileWriter writer = new FileWriter(file);
+           BufferedWriter writer = new BufferedWriter(file);
            for (int i = 0;i<54;i++)
             {
                 writer.write(lines.get(i));
                 writer.write("\n");
             }
+            write.write(String.format(lines.get(54),className));
             for (Attribute attribute : attributes)
             {
                 if(attribute.getIsId() == "false")
                 {
-                    createInputEntry(inputLines, writer, attribute,className);
-                }
-            }
-            for(int i = 54; i<lines.size();i++)
-            {
-                writer.write(lines.get(i));
-            }
-        }catch(Exception e){
-            System.out.println("Error in writing the file create");
-            System.out.println(e.getMessage()); }
-    }  
-    private void createInputEntry(List<String> inlines,FileWriter writer,Attribute attribute,String className)
-    {
-        try {
-            int offset = 0;
+                    // createInputEntry(inputLines, writer, attribute,className);
+                    int offset = 0;
             writer.write(inlines.get(offset++));//1
             writer.write(inlines.get(offset++));//2
             writer.write(String.format(inlines.get(offset++), className, attribute.getName()));//3
@@ -198,6 +187,21 @@ public class FrontendClassCreator {
             while (offset != inlines.size()) {
                 writer.write(inlines.get(offset++));
             }
+                }
+            }
+            for(int i = 54; i<lines.size();i++)
+            {
+                writer.write(lines.get(i));
+            }
+            writer.close()
+        }catch(Exception e){
+            System.out.println("Error in writing the file create");
+            System.out.println(e.getMessage()); }
+    }  
+    private void createInputEntry(List<String> inlines,FileWriter writer,Attribute attribute,String className)
+    {
+        try {
+            
         }catch (
                 IOException e
         )
