@@ -13,7 +13,7 @@ function Create() {
     toast.error("Couldn't execute the create operation");
   const handleEntityChange = (event) => {
     const { name, value } = event.target;
-    setModel((prev) => (
+    setEntity((prev) => (
       {
         ...prev,
         [name] : value

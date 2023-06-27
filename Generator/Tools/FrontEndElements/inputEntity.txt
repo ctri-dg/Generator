@@ -8,8 +8,10 @@
               name="%s"
               value={model.%s}
               placeholder="%s %s"
+              %s
               onChange={handleEntityChange}
               required
+              
             />
             <br/>
         </div>

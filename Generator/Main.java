@@ -25,5 +25,6 @@ public class Main {
         creator2.copyClientFiles();
         creator2.createModel();
         creator2.createCreatePage();
+        creator2.createUpdatePage();
     }
 }
