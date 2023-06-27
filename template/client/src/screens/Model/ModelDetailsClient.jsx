@@ -1,1 +1,1 @@
-class %s {
+class %s{
