@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.example.dataprovider.models.*;
+
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,8 +1,7 @@
 package com.example.dataprovider.repositories;
-
-import com.example.dataprovider.models.Branch;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.example.dataprovider.models.*;
 
 public interface %sRepository extends JpaRepository<%s, %s> {
