@@ -45,15 +45,15 @@ public class BranchController {
 }
 			return branch.get();
 }
-	@PostMapping("/{city}")
+	@PostMapping("/city")
 		private List<Branch> getBranchesByCity(@RequestBody CityRequest cityRequest){
 			return resourceRepository.findByCity(cityRequest.getCity());
 }
-	@PostMapping("/{area}")
+	@PostMapping("/area")
 		private List<Branch> getBranchesByArea(@RequestBody AreaRequest areaRequest){
 			return resourceRepository.findByArea(areaRequest.getArea());
 }
-	@PostMapping("/{cityarea}")
+	@PostMapping("/cityarea")
 		private List<Branch> getBranchesByCityArea(@RequestBody CityAreaRequest cityareaRequest){
 			return resourceRepository.findByCityAndArea(cityareaRequest.getCity() ,cityareaRequest.getArea());
 }

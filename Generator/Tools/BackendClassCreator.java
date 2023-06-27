@@ -317,13 +317,12 @@ public class BackendClassCreator {
         }}
 
             for (Operation operation : operations) {
-                System.out.println(operation);
                  String concatParam="";
                 for (int i = 0; i < operation.getParameters().size(); i++) {
                  Parameter param = operation.getParameters().get(i);
                  concatParam+=toCamelCase(param.getName());   
                 }
-                writer.write(String.format("\n\t@PostMapping(\"/{%s}\")\n",concatParam.toLowerCase()));
+                writer.write(String.format("\n\t@PostMapping(\"/%s\")\n",concatParam.toLowerCase()));
                 writer.write(String.format("\t\tprivate %s get%sesBy%s(@RequestBody %sRequest %sRequest){\n",returnType,elementType,toCamelCase(concatParam),toCamelCase(concatParam),concatParam.toLowerCase()));
                 String totalParam="";
                     for (int i = 0; i < operation.getParameters().size(); i++) {
