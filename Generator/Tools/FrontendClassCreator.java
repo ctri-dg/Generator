@@ -95,9 +95,9 @@ public class FrontendClassCreator {
             FileWriter writer = new FileWriter(file);
             writer.write(String.format(lines.get(0),className ));
             writer.write("\n");
-            for (auto attribute : attributes)
+            for (Attribute attribute : attributes)
             {
-                if(attribute.getIsId() == false)
+                if(attribute.getIsId() == "false")
                 writer.write(
                         String.format(
                                 "\t %s;\n",
@@ -166,11 +166,11 @@ public class FrontendClassCreator {
                 writer.write(lines.get(i));
                 writer.write("\n");
             }
-            for (auto attribute : attributes)
+            for (Attribute attribute : attributes)
             {
-                if(attribute.getIsId() == false)
+                if(attribute.getIsId() == "false")
                 {
-                    createInputEntry(inputLines, writer, null);
+                    createInputEntry(inputLines, writer, attribute,className);
                 }
             }
             for(int i = 54; i<lines.size();i++)
@@ -178,26 +178,31 @@ public class FrontendClassCreator {
                 writer.write(lines.get(i));
             }
         }catch(Exception e){
-            System.println("Error in writing the file create");
-            System.println(e.getMessage()); }
+            System.out.println("Error in writing the file create");
+            System.out.println(e.getMessage()); }
     }  
-    private void createInputEntry(List<String> inlines,FileWriter writer,Attribute attribute)
+    private void createInputEntry(List<String> inlines,FileWriter writer,Attribute attribute,String className)
     {
-        int offset = 0;
-        writer.write(inlines.get(offset++));//1
-        writer.write(inlines.get(offset++));//2
-        writer.write(String.format(inlines.get(offset++),className,attribute.getName()));//3
-        for(int i = 0;i<3;i++)
+        try {
+            int offset = 0;
+            writer.write(inlines.get(offset++));//1
+            writer.write(inlines.get(offset++));//2
+            writer.write(String.format(inlines.get(offset++), className, attribute.getName()));//3
+            for (int i = 0; i < 3; i++) {
+                writer.write(inlines.get(offset++));//4 5 6
+            }
+            writer.write(String.format(inlines.get(offset++), inputDataTypeMap.get(attribute.getType())));// setting type
+            writer.write(String.format(inlines.get(offset++), attribute.getName()));//setting name
+            writer.write(String.format(inlines.get(offset++), attribute.getName()));//setting value for specific input
+            writer.write(String.format(inlines.get(offset++), className, attribute.getName()));
+            while (offset != inlines.size()) {
+                writer.write(inlines.get(offset++));
+            }
+        }catch (
+                IOException e
+        )
         {
-            writer.write(inlines.get(offset++));//4 5 6
-        }
-        writer.write(String.format(inlines.get(offset++),inputDataTypeMap.get(attribute.getType())));// setting type
-        writer.write(String.format(inlines.get(offset++),attribute.getName()));//setting name
-        writer.write(String.format(inlines.get(offset++,attribute.getName())));//setting value for specific input
-        writer.write(String.format(inlines.get(offset++),className,attribute.getName()));
-        while(offset != inlines.size())
-        {
-            writer.write(inlines.get(offset++));
+            System.out.println(e.getMessage());
         }
         return;
     }
