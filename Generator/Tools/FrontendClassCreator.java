@@ -168,7 +168,7 @@ public class FrontendClassCreator {
                     createInputEntry(inputLines, writer, attribute,className);
                 }
             }
-            for (int i = 54; i < lines.size(); i++) {
+            for (int i = 55; i < lines.size(); i++) {
                 writer.write(lines.get(i));
             }
             writer.close();
