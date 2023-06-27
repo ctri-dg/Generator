@@ -1,6 +1,7 @@
 package Generator;
 
 import Generator.Tools.BackendClassCreator;
+import Generator.Tools.FrontendClassCreator;
 
 public class Main {
     public static void main(String args[]){
@@ -20,5 +21,9 @@ public class Main {
         // for(Operation operation : parser.getOperations()){
         //     System.out.println(operation);
         // }
+        FrontendClassCreator creator2 = new FrontendClassCreator("project.xml");
+        creator2.copyClientFiles();
+        creator2.createModel();
+        creator2.createCreatePage();
     }
 }
