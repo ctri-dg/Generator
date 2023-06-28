@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "react-bootstrap";
-import {EntityDetailsClient} from "../Model/ModelDetailsClient" 
+import {default as EntityDetailsClient} from "../Model/ModelDetailsClient" 
 function Create() {
   var [entity, setEntity] = useState(new EntityDetailsClient());
   const showSuccess = () =>
@@ -25,7 +25,7 @@ function Create() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8100/data-provider/v1/branch",
+        "http://localhost:8100/data-provider/v1/%s",
         {
           method: "POST",
           headers: {

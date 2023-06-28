@@ -6,7 +6,7 @@
               className="form-control"
               type="%s"
               name="%s"
-              value={model.%s}
+              value={entity.%s}
               placeholder="%s %s"
               %s
               onChange={handleEntityChange}

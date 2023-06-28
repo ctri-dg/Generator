@@ -32,7 +32,7 @@ function Update()
         try{
             let config = {
                 method: "put",
-                url: `http://localhost:8100/data-provider/v1/branch`,
+                url: `http://localhost:8100/data-provider/v1/%s`,
                 headers: {
                   "Content-Type": "application/json",
                 },

@@ -160,9 +160,14 @@ public class FrontendClassCreator {
         try {
             File file = new File(String.format("./output/client/src/screens/Create/Create.jsx"));
             FileWriter writer = new FileWriter(file);
-            for (int i = 0; i < 54; i++) {
+            for (int i = 0; i < 27; i++) {
                 writer.write(lines.get(i));
                 writer.write("\n");
+            }
+            writer.write(String.format(lines.get(27),className.toLowerCase())+"\n");
+            for(int i = 28;i<54;i++)
+            {
+                writer.write(lines.get(i) + "\n");
             }
             writer.write(String.format(lines.get(54),className));
             writer.write("\n");
@@ -222,6 +227,11 @@ public class FrontendClassCreator {
             File file = new File(String.format("./output/client/src/screens/Update/Update.jsx"));
             FileWriter writer = new FileWriter(file);
             for (int i = 0; i < 60; i++) {
+                if(i == 34)
+                {
+                    writer.write(String.format(lines.get(i),className.toLowerCase())+'\n');
+                    continue;
+                }
                 writer.write(lines.get(i));
                 writer.write("\n");
             }

@@ -13,7 +13,7 @@ const Delete = () => {
   const [waiting, setWaiting] = useState(false);
 
   const showSuccess = () =>
-    toast.success(`Successfully deleted branch with id = ${id}.`);
+    toast.success(`Successfully deleted id = ${id}.`);
   const showFailure = () =>
     toast.error("Couldn't execute the delete operation");
 
@@ -46,7 +46,7 @@ const Delete = () => {
     <div className="Delete">
       <Header
         title="Delete"
-        description="Use retrieve to fetch the id of the branch you wish to delete and enter it here"
+        description="Use retrieve to fetch the id which you wish to delete and enter it here"
       />
       <div className="deleteinp d-flex flex-row justify-content-center">
         <input
