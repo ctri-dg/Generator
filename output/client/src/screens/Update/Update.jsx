@@ -67,7 +67,7 @@ function Update()
               className="form-control"
               type="number"
               name="id"
-              value={model.id}
+              value={entity.id}
               placeholder="Branch id"
               readOnly
               onChange={handleEntityChange}
@@ -84,7 +84,7 @@ function Update()
               className="form-control"
               type="text"
               name="city"
-              value={model.city}
+              value={entity.city}
               placeholder="Branch city"
               
               onChange={handleEntityChange}
@@ -101,7 +101,7 @@ function Update()
               className="form-control"
               type="text"
               name="area"
-              value={model.area}
+              value={entity.area}
               placeholder="Branch area"
               
               onChange={handleEntityChange}
@@ -118,7 +118,7 @@ function Update()
               className="form-control"
               type="text"
               name="manager"
-              value={model.manager}
+              value={entity.manager}
               placeholder="Branch manager"
               
               onChange={handleEntityChange}
@@ -135,25 +135,8 @@ function Update()
               className="form-control"
               type="number"
               name="employees"
-              value={model.employees}
+              value={entity.employees}
               placeholder="Branch employees"
-              
-              onChange={handleEntityChange}
-              required
-              
-            />
-            <br/>
-        </div>
-        <div className="input-group mb-3">
-            <label className="input-group-text" id="inputGroup-sizing-default">
-              Branch revenue
-            </label>
-            <input
-              className="form-control"
-              type="null"
-              name="revenue"
-              value={model.revenue}
-              placeholder="Branch revenue"
               
               onChange={handleEntityChange}
               required
