@@ -3,6 +3,5 @@ class Branch{
 	 area;
 	 manager;
 	 employees;
-	 revenue;
 }
  export default Branch;

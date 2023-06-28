@@ -27,7 +27,7 @@ public class Main {
         creator2.createModel();
         creator2.createCreatePage();
         creator2.createUpdatePage();
-
+        creator2.createDeletePage();
         FrontendClassCreator2 creator3 = new FrontendClassCreator2(parser);
         creator3.createResultCard();
     }

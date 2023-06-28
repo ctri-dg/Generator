@@ -296,6 +296,38 @@ public class FrontendClassCreator {
             System.out.println(e.getMessage());
         }
     }
+    public void createDeletePage() {
+        String className = parser.getClassName();
+        className = className.substring(0, 1).toUpperCase() + className.substring(1).toLowerCase();
+        List<String> lines = new ArrayList<String>();
+        try {
+            BufferedReader aReader = new BufferedReader(new FileReader(
+                    "./template/client/src/screens/Delete/Delete.jsx"));
+            String line = aReader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = aReader.readLine();
+            }
+            aReader.close();
+        } catch (Exception e) {
+            System.out.println("error : " + e.getMessage());
+        }
+        
+        File currentFile = new File("./output/client/src/screens/Delete/Delete.jsx");
+        currentFile.delete();
 
+        try {
+            File file = new File(String.format("./output/client/src/screens/Delete/Delete.jsx"));
+            FileWriter writer = new FileWriter(file);
+           for (int i = 0; i < lines.size(); i++) {
+            writer.write(lines.get(i));
+            writer.write("\n");
+           } 
+            writer.close();
+        }catch(Exception e){
+            System.out.println("Error in writing the file delete");
+            System.out.println(e.getMessage()); 
+        }
+    }
 
 }
