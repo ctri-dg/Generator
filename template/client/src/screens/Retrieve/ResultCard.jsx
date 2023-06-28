@@ -1,25 +1,21 @@
-//import begin
 import { useState } from "react";
 import "./ResultCard.scss";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-//import end
 
-//funcdec begin
 const ResultCard = ({
-  %s
+//break
 }) => {
-//funcdec end
+
   const navigate = useNavigate();
   return (
     <tr
         className="ResultCard"
       >
-        <th scope="row">{id}</th>
-        <td>{area}</td>
-        <td>{city}</td>
-        <td>{numEmployees}</td>
-        <td>{manager}</td>
+//break
+        <th scope="row">{%s}</th>
+        <td>{%s}</td>
+
         <td className="options">
           <AiFillEdit
             className="icons"
@@ -27,11 +23,7 @@ const ResultCard = ({
             onClick={() => {
               navigate("/update", {
                 state: {
-                  id: id,
-                  city: city,
-                  area: area,
-                  manager: manager,
-                  numEmployees: numEmployees,
+//break
                 },
               });
             }}
@@ -40,7 +32,10 @@ const ResultCard = ({
             className="icons"
             size={25}
             onClick={() => {
-              navigate("/delete", { state: id });
+              navigate("/delete", { 
+//break
+                state: %s 
+              });
             }}
           />
         </td>
@@ -49,3 +44,4 @@ const ResultCard = ({
 };
 
 export default ResultCard;
+//break

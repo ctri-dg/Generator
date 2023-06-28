@@ -1,17 +1,18 @@
 package Generator;
 
-import Generator.Tools.BackendClassCreator;
-import Generator.Tools.FrontendClassCreator;
+import Generator.Tools.*;
 
 public class Main {
     public static void main(String args[]){
+        
         BackendClassCreator creator = new BackendClassCreator("project.xml");
         creator.copyServerFiles();
         creator.createEntityFile();
         creator.createRepositoryFile();
         creator.createRequestFiles();
         creator.createControllerFile();
-        // DocumentParser parser = new DocumentParser("project.xml");
+
+        DocumentParser parser = new DocumentParser("project.xml");
         // System.out.println(parser.getClassName());
         // System.out.println("Attributes : ");
         // for(Attribute attr : parser.getAttributes()){
@@ -26,5 +27,8 @@ public class Main {
         creator2.createModel();
         creator2.createCreatePage();
         creator2.createUpdatePage();
+
+        FrontendClassCreator2 creator3 = new FrontendClassCreator2(parser);
+        creator3.createResultCard();
     }
 }
