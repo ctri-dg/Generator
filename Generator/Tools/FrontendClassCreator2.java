@@ -20,7 +20,6 @@ public class FrontendClassCreator2 {
     }
 
     public void createResultCard() {
-        String className = parser.getClassName();
         List<Attribute> attributes = parser.getAttributes();
         Attribute idAttribute = parser.getIdAttribute();
 
@@ -78,6 +77,63 @@ public class FrontendClassCreator2 {
             writer.close();
         } catch (Exception e) {
             System.out.println("error 2: " + e.getMessage());
+        }
+    }
+
+    public void createRetrieveFile(){
+        String className = parser.getClassName();
+        List<Attribute> attributes = parser.getAttributes();
+        Attribute idAttribute = parser.getIdAttribute();
+
+        List<String> lines = new ArrayList<String>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(
+                    "./template/client/src/screens/Retrieve/Retrieve.jsx"));
+            String line = reader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (Exception e) {
+            System.out.println("error 3:" + e.getMessage());
+        }
+
+        File currentFile = new File("./output/client/src/screens/Retrieve/Retrieve.jsx");
+        currentFile.delete();
+
+        try {
+            File file = new File("./output/client/src/screens/Retrieve/Retrieve.jsx");
+            FileWriter writer = new FileWriter(file);
+
+            int i = 0;
+            int n = lines.size();
+            
+            i = writeTillBreak(i, n, lines, writer);
+            writer.write(String.format(lines.get(i++) + "\n", idAttribute.getName()));
+            i = writeTillBreak(i, n, lines, writer);
+            writer.write(String.format(lines.get(i++) + "\n", idAttribute.getName()));
+            i = writeTillBreak(i, n, lines, writer);
+            writer.write(String.format(lines.get(i++) + "\n", idAttribute.getName(), idAttribute.getName()));
+            for(String attr : parser.getSearchAttributes()){
+                writer.write(String.format(lines.get(i) + "\n", attr, attr));
+            }
+            i++;
+            i = writeTillBreak(i, n, lines, writer);
+            for(Attribute attribute : attributes){
+                writer.write(String.format(lines.get(i) + "\n", attribute.getName()));
+            }
+            i++;
+            i = writeTillBreak(i, n, lines, writer);
+            writer.write(String.format(lines.get(i++) + "\n", idAttribute.getName()));
+            for(Attribute attribute : attributes){
+                writer.write(String.format(lines.get(i) + "\n", attribute.getName(), attribute.getName()));
+            }
+            i++;
+            i = writeTillBreak(i, n, lines, writer);
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("error 4: " + e.getMessage());
         }
     }
 

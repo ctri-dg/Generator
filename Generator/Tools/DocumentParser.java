@@ -16,6 +16,7 @@ public class DocumentParser {
     private List<Attribute> attributes;
     private List<Operation> operations;
     private Attribute idAttribute;
+    private List<String> searchAttributes;
     private String className;
 
     public DocumentParser(String filename){
@@ -70,6 +71,13 @@ public class DocumentParser {
                 break;
             }
         }
+        this.searchAttributes = new ArrayList<String>();
+        for(Operation operation : this.operations){
+            if(operation.getParameters().size() != 1){
+                continue;
+            }
+            searchAttributes.add(operation.getParameters().get(0).getName());
+        }
     }
 
     public List<Attribute> getAttributes(){
@@ -83,5 +91,8 @@ public class DocumentParser {
     }
     public Attribute getIdAttribute(){
         return idAttribute;
+    }
+    public List<String> getSearchAttributes(){
+        return searchAttributes;
     }
 }

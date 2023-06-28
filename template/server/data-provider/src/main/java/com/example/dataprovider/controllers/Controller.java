@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @RestController
-@RequestMapping("/data-provider/v1/branch")
+@RequestMapping("/data-provider/v1/resource")
 @CrossOrigin
 public class %sController {
  
