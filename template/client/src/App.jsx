@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route}from 'react-router-dom'
 
-import Create from './screens/Create/create';
+import Create from './screens/Create/Create';
 import Retrieve from './screens/Retrieve/Retrieve'
 import Navbar from './components/Navbar/Navbar'
 import Delete from './screens/Delete/Delete';

@@ -5,7 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "react-bootstrap";
-import {Default as EntityDetailsClient } from '../Model/ModelDetailsClient';
+import {default as EntityDetailsClient } from '../Model/ModelDetailsClient';
 function Update()
 {
     const location = useLocation();
