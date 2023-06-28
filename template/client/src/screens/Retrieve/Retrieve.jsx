@@ -8,14 +8,15 @@ import { Spinner } from "react-bootstrap";
 const Retrieve = () => {
   const [mode, setMode] = useState("all");
   const [results, setResults] = useState([]);
-  const [attr, setAttr] = useState("id");
+//break
+  const [attr, setAttr] = useState("%s");
   const [val, setVal] = useState("");
   const [waiting, setWaiting] = useState(false);
 
   const getAllRecords = () => {
     setWaiting(true);
     const response = axios
-      .get("http://localhost:8100/data-provider/v1/%s")
+      .get("http://localhost:8001/data-provider/v1/resource")
       .then((response) => {
         setWaiting(false);
         // console.log(response.data);
@@ -32,30 +33,52 @@ const Retrieve = () => {
   };
 
   const getSomeRecords = () => {
-    let data = JSON.stringify({
-      parameter: val,
-    });
-
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: `http://localhost:8100/data-provider/v1/branch/${attr}`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-    setWaiting(true);
-    axios
-      .request(config)
-      .then((response) => {
-        setWaiting(false);
-        setResults(response.data);
-      })
-      .catch((error) => {
-        setWaiting(false);
-        console.log(error);
+    var config;
+//break
+    if(parameter === "%s"){
+      config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `http://localhost:8100/data-provider/v1/resource/${val}`,
+      };
+      setWaiting(true);
+      axios
+        .request(config)
+        .then((response) => {
+          setResults([response.data]);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(()=>{
+          setWaiting(false);
+        })
+    }else{
+      let data = JSON.stringify({
+        parameter: val,
       });
+      config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: `http://localhost:8100/data-provider/v1/resource/${attr}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      setWaiting(true);
+      axios
+        .request(config)
+        .then((response) => {
+          setResults(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(()=>{
+          setWaiting(false);
+        })
+      }
   };
 
   return (
@@ -104,46 +127,9 @@ const Retrieve = () => {
               {attr}
             </button>
             <ul class="dropdown-menu">
-              <li>
-                <a
-                  class="dropdown-item"
-                  onClick={() => {
-                    setAttr("%s");
-                  }}
-                >
-                  id
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  onClick={() => {
-                    setAttr("%s");// Setting attribute
-                  }} // attribute name at 124
-                >
-                  %s 
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  onClick={() => {
-                    setAttr("%s");
-                  }}
-                >
-                  %s
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  onClick={() => {
-                    setAttr("%s");
-                  }}
-                >
-                  %s
-                </a>
-              </li>
+//break
+              <li><a class="dropdown-item" onClick={() => {setAttr("%s");}}>%s</a></li>
+              <li><a class="dropdown-item" onClick={() => {setAttr("%s");}}>%s</a></li>
             </ul>
           </div>
           <div className="searchbar p-2 m-4">
@@ -170,11 +156,8 @@ const Retrieve = () => {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">Id</th>
-                <th scope="col">area</th>
-                <th scope="col">city</th>
-                <th scope="col">employees</th>
-                <th scope="col">manager</th>
+//break
+                <th scope="col">%s</th>
                 <th scope="col">options</th>
               </tr>
             </thead>
@@ -183,12 +166,9 @@ const Retrieve = () => {
               results.map((e) => {
                 return (
                   <ResultCard
-                    key={e.id}
-                    id={e.id}
-                    city={e.city}
-                    area={e.area}
-                    numEmployees={e.numEmployees}
-                    manager={e.manager}
+//break
+                    key={e.%s}
+                    %s={e.%s}
                   />
                 );
               })}
@@ -203,3 +183,4 @@ const Retrieve = () => {
 };
 
 export default Retrieve;
+//break
