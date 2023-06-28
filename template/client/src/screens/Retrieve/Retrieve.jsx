@@ -7,29 +7,7 @@ import { Spinner } from "react-bootstrap";
 
 const Retrieve = () => {
   const [mode, setMode] = useState("all");
-  const [results, setResults] = useState([
-    {
-      "id" : 1,
-      "city" : "SomeCity",
-      "area" : "SomeArea",
-      "manager" : "Man-a ger",
-      "numEmployees" : 89
-    },
-    {
-      "id" : 1,
-      "city" : "SomeCity",
-      "area" : "SomeArea",
-      "manager" : "Man-a ger",
-      "numEmployees" : 89
-    },
-    {
-      "id" : 1,
-      "city" : "SomeCity",
-      "area" : "SomeArea",
-      "manager" : "Man-a ger",
-      "numEmployees" : 89
-    }
-  ]);
+  const [results, setResults] = useState([]);
   const [attr, setAttr] = useState("id");
   const [val, setVal] = useState("");
   const [waiting, setWaiting] = useState(false);
@@ -37,10 +15,10 @@ const Retrieve = () => {
   const getAllRecords = () => {
     setWaiting(true);
     const response = axios
-      .get("http://localhost:8100/data-provider/v1/branch")
+      .get("http://localhost:8100/data-provider/v1/%s")
       .then((response) => {
         setWaiting(false);
-        console.log(response.data);
+        // console.log(response.data);
         if (response.status == 200) {
           setResults(response.data);
         } else {
@@ -130,7 +108,7 @@ const Retrieve = () => {
                 <a
                   class="dropdown-item"
                   onClick={() => {
-                    setAttr("id");
+                    setAttr("%s");
                   }}
                 >
                   id
@@ -140,30 +118,30 @@ const Retrieve = () => {
                 <a
                   class="dropdown-item"
                   onClick={() => {
-                    setAttr("area");
-                  }}
+                    setAttr("%s");// Setting attribute
+                  }} // attribute name at 124
                 >
-                  area
+                  %s 
                 </a>
               </li>
               <li>
                 <a
                   class="dropdown-item"
                   onClick={() => {
-                    setAttr("city");
+                    setAttr("%s");
                   }}
                 >
-                  city
+                  %s
                 </a>
               </li>
               <li>
                 <a
                   class="dropdown-item"
                   onClick={() => {
-                    setAttr("manager");
+                    setAttr("%s");
                   }}
                 >
-                  manager
+                  %s
                 </a>
               </li>
             </ul>
