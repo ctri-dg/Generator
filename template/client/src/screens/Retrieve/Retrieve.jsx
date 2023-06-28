@@ -7,7 +7,29 @@ import { Spinner } from "react-bootstrap";
 
 const Retrieve = () => {
   const [mode, setMode] = useState("all");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([
+    {
+      "id" : 1,
+      "city" : "SomeCity",
+      "area" : "SomeArea",
+      "manager" : "Man-a ger",
+      "numEmployees" : 89
+    },
+    {
+      "id" : 1,
+      "city" : "SomeCity",
+      "area" : "SomeArea",
+      "manager" : "Man-a ger",
+      "numEmployees" : 89
+    },
+    {
+      "id" : 1,
+      "city" : "SomeCity",
+      "area" : "SomeArea",
+      "manager" : "Man-a ger",
+      "numEmployees" : 89
+    }
+  ]);
   const [attr, setAttr] = useState("id");
   const [val, setVal] = useState("");
   const [waiting, setWaiting] = useState(false);
@@ -153,9 +175,9 @@ const Retrieve = () => {
               onChange={(e) => {
                 setVal(e.target.value);
               }}
-              onKeyDown={(e) =>{
-                if(e.key == "Enter"){
-                    getSomeRecords();
+              onKeyDown={(e) => {
+                if (e.key == "Enter") {
+                  getSomeRecords();
                 }
               }}
             />
@@ -167,18 +189,33 @@ const Retrieve = () => {
         {waiting ? (
           <Spinner />
         ) : results.length ? (
-          results.map((e) => {
-            return (
-              <ResultCard
-                key={e.id}
-                id={e.id}
-                city={e.city}
-                area={e.area}
-                numEmployees={e.numEmployees}
-                manager={e.manager}
-              />
-            );
-          })
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">area</th>
+                <th scope="col">city</th>
+                <th scope="col">employees</th>
+                <th scope="col">manager</th>
+                <th scope="col">options</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+              results.map((e) => {
+                return (
+                  <ResultCard
+                    key={e.id}
+                    id={e.id}
+                    city={e.city}
+                    area={e.area}
+                    numEmployees={e.numEmployees}
+                    manager={e.manager}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
         ) : (
           <div className="noresults m-5">No records found</div>
         )}

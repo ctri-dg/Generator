@@ -15,6 +15,7 @@ public class DocumentParser {
     
     private List<Attribute> attributes;
     private List<Operation> operations;
+    private Attribute idAttribute;
     private String className;
 
     public DocumentParser(String filename){
@@ -62,6 +63,13 @@ public class DocumentParser {
                 }
             }
         }
+
+        for(Attribute attribute : this.attributes){
+            if(attribute.getIsId().equals("true")){
+                idAttribute = attribute;
+                break;
+            }
+        }
     }
 
     public List<Attribute> getAttributes(){
@@ -72,5 +80,8 @@ public class DocumentParser {
     }
     public String getClassName(){
         return className;
+    }
+    public Attribute getIdAttribute(){
+        return idAttribute;
     }
 }

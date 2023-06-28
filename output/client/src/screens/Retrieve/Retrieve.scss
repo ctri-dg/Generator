@@ -1,31 +1,40 @@
-.Retrieve{
-    .noresults, .resultDisplay{
-        margin : 10px 20px;
-        text-align: center;
+// Retrieve.scss
+.Retrieve {
+    .resultDisplay {
+      margin: 10px 20px;
+      text-align: center;
     }
-    .options{
-        .option, .option-active{
-            border-radius: 15px;
-            padding : 7px 15px;
-            cursor : pointer;
-        }
-        .option{
-            border : 2px solid black;
-        }
-        .option-active, .option:hover{
-            background-color: black;
-            color : white;
-        }
+    
+    .options {
+      .option,
+      .option-active {
+        border-radius: 15px;
+        padding: 7px 15px;
+        cursor: pointer;
+        max-width: 30vw;
+      }
+      
+      .option {
+        border: 2px solid black;
+      }
+      
+      .option-active,
+      .option:hover {
+        background-color: black;
+        color: white;
+      }
     }
-    .searchoptions{
-        .searchbar{
-            flex : 1;
-            .form-control{
-                height: 40px;
-                border : 2px solid black;
-                border-radius: 15px;
-            }
+    
+    .searchoptions {
+      .searchbar {
+        flex: 1;
+        
+        .form-control {
+          height: 40px;
+          border: 2px solid black;
+          border-radius: 15px;
         }
+      }
     }
-
-}
+  }
+  
