@@ -19,8 +19,8 @@ public class BackendClassCreator {
     Map<String, String> dataTypeMap;
     Map<String, String> primitiveClassMap;
 
-    public BackendClassCreator(String filename) {
-        parser = new DocumentParser(filename);
+    public BackendClassCreator(DocumentParser parser) {
+        this.parser = parser;
         dataTypeMap = new HashMap<String, String>();
         dataTypeMap.put("string", "String");
         dataTypeMap.put("long", "long");
@@ -54,7 +54,7 @@ public class BackendClassCreator {
         file.delete();
     }
 
-    public void copyServerFiles() {
+    private void copyServerFiles() {
         File from = new File("./template/server");
         File to = new File("./output/server");
         // wiping the target clean
@@ -68,7 +68,7 @@ public class BackendClassCreator {
         }
     }
 
-    public void createEntityFile() {
+    private void createEntityFile() {
         String className = parser.getClassName();
         List<Attribute> attributes = parser.getAttributes();
         List<String> lines = new ArrayList<String>();
@@ -123,7 +123,7 @@ public class BackendClassCreator {
         }
     }
 
-    public void createRepositoryFile() {
+    private void createRepositoryFile() {
         String className = parser.getClassName();
         List<Operation> operations = parser.getOperations();
         List<Attribute> attributes = parser.getAttributes();
@@ -240,21 +240,21 @@ public class BackendClassCreator {
         }
     }
 
-    public void createRequestFiles() {
+    private void createRequestFiles() {
         List<Operation> operations = parser.getOperations();
         for (Operation operation : operations) {
             createRequestFile(operation.getParameters());
         }
     }
 
-    public String toCamelCase(String a) {
+    private String toCamelCase(String a) {
         char ch[] = a.toCharArray();
         int n = a.length();
         ch[0] = Character.toUpperCase(ch[0]);
         return String.valueOf(ch, 0, n);
     }
 
-    public void createControllerFile() {
+    private void createControllerFile() {
         String className = parser.getClassName();
         List<Attribute> attributes = parser.getAttributes();
         List<String> lines = new ArrayList<String>();
@@ -367,6 +367,13 @@ public class BackendClassCreator {
         } catch (Exception e) {
             System.out.println("error : " + e.getMessage());
         }
+    }
 
+    public void create(){
+        copyServerFiles();
+        createEntityFile();
+        createRepositoryFile();
+        createRequestFiles();
+        createControllerFile();
     }
 }

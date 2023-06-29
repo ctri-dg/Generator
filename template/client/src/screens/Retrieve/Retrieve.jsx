@@ -35,7 +35,7 @@ const Retrieve = () => {
   const getSomeRecords = () => {
     var config;
 //break
-    if(parameter === "%s"){
+    if(attr === "%s"){
       config = {
         method: "get",
         maxBodyLength: Infinity,
@@ -54,8 +54,9 @@ const Retrieve = () => {
           setWaiting(false);
         })
     }else{
+
       let data = JSON.stringify({
-        parameter: val,
+        [attr] : val,
       });
       config = {
         method: "post",
@@ -126,10 +127,10 @@ const Retrieve = () => {
             >
               {attr}
             </button>
-            <ul class="dropdown-menu">
+            <ul className="dropdown-menu">
 //break
-              <li><a class="dropdown-item" onClick={() => {setAttr("%s");}}>%s</a></li>
-              <li><a class="dropdown-item" onClick={() => {setAttr("%s");}}>%s</a></li>
+              <li><a className="dropdown-item" onClick={() => {setAttr("%s");}}>%s</a></li>
+              <li><a className="dropdown-item" onClick={() => {setAttr("%s");}}>%s</a></li>
             </ul>
           </div>
           <div className="searchbar p-2 m-4">
