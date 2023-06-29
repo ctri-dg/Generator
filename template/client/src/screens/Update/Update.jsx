@@ -16,7 +16,7 @@ function Update()
       }, [newdata]);
     const handleEntityChange = (event) => {
         const { name, value } = event.target;
-        setBranch((prev) => (
+        setEntity((prev) => (
           {
             ...prev,
             [name] : value
