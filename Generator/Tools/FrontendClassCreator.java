@@ -174,7 +174,7 @@ public class FrontendClassCreator {
                 writer.write(lines.get(i));
                 writer.write("\n");
             }
-            writer.write(String.format(lines.get(27),className.toLowerCase())+"\n");
+            writer.write(String.format(lines.get(27),"resource")+"\n");//setting the url here 
             for(int i = 28;i<54;i++)
             {
                 writer.write(lines.get(i) + "\n");
@@ -239,7 +239,7 @@ public class FrontendClassCreator {
             for (int i = 0; i < 60; i++) {
                 if(i == 34)
                 {
-                    writer.write(String.format(lines.get(i),className.toLowerCase())+'\n');
+                    writer.write(String.format(lines.get(i),"resource")+'\n');// used for setting the url
                     continue;
                 }
                 writer.write(lines.get(i));
