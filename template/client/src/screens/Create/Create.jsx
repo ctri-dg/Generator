@@ -25,7 +25,7 @@ function Create() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost:8001/data-provider/v1/resource",
+        "http://localhost:8100/data-provider/v1/resource",
         {
           method: "POST",
           headers: {

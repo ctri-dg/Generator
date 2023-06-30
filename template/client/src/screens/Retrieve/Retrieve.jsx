@@ -16,7 +16,7 @@ const Retrieve = () => {
   const getAllRecords = () => {
     setWaiting(true);
     const response = axios
-      .get("http://localhost:8001/data-provider/v1/resource")
+      .get("http://localhost:8100/data-provider/v1/resource")
       .then((response) => {
         setWaiting(false);
         // console.log(response.data);
