@@ -20,7 +20,7 @@ const Delete = () => {
   const deleteById = () => {
     setWaiting(true);
     axios
-      .delete(`http://localhost:8100/data-provider/v1/resource/${id}`)
+      .delete(`http://localhost:8001/data-provider/v1/resource/${id}`)
       .then((response) => {
         if (response.status == 200) {
           showSuccess();

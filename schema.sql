@@ -1,15 +1,14 @@
 
-    create table `dataprovider_product` (
-        price integer not null,
+    create table `dataprovider_person` (
+        age integer not null,
         id bigint not null,
-        company varchar(255),
-        description varchar(255),
+        family varchar(255),
         name varchar(255),
         primary key (id)
     ) engine=InnoDB;
 
-    create table dataprovider_product_seq (
+    create table dataprovider_person_seq (
         next_val bigint
     ) engine=InnoDB;
 
-    insert into dataprovider_product_seq values ( 1 );
+    insert into dataprovider_person_seq values ( 1 );

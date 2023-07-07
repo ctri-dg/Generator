@@ -8,11 +8,11 @@
 		<version>3.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.ctri-dg</groupId>
+	<groupId>com.example</groupId>
 	<artifactId>data-provider</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>data-provider</name>
-	<description>The service which reads data from the SQL database and serves it using a REST API</description>
+	<description>The service which reads data from the SQL database</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.3</spring-cloud.version>
@@ -47,10 +47,10 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency> -->
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>

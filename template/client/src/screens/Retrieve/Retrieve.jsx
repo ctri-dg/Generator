@@ -16,7 +16,7 @@ const Retrieve = () => {
   const getAllRecords = () => {
     setWaiting(true);
     const response = axios
-      .get("http://localhost:8100/data-provider/v1/resource")
+      .get("http://localhost:8001/data-provider/v1/resource")
       .then((response) => {
         setWaiting(false);
         // console.log(response.data);
@@ -39,7 +39,7 @@ const Retrieve = () => {
       config = {
         method: "get",
         maxBodyLength: Infinity,
-        url: `http://localhost:8100/data-provider/v1/resource/${val}`,
+        url: `http://localhost:8001/data-provider/v1/resource/${val}`,
       };
       setWaiting(true);
       axios
@@ -61,7 +61,7 @@ const Retrieve = () => {
       config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: `http://localhost:8100/data-provider/v1/resource/${attr}`,
+        url: `http://localhost:8001/data-provider/v1/resource/${attr}`,
         headers: {
           "Content-Type": "application/json",
         },

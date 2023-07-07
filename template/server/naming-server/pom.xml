@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.ctri-dg</groupId>
 	<artifactId>naming-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>naming-server</name>
 	<description>Naming server for CRUD application</description>
 	<properties>
