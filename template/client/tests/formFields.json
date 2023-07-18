@@ -1,0 +1,18 @@
+[
+    {
+        "type" : "text",
+        "label" : "city"
+    },
+    {
+        "type" : "text",
+        "label" : "area"
+    },
+    {
+        "type" : "integer",
+        "label" : "employees"
+    },
+    {
+        "type" : "text",
+        "label" : "manager"
+    }
+]

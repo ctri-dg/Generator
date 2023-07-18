@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "react-bootstrap";
 import {default as EntityDetailsClient} from "../Model/ModelDetailsClient" 
 function Create() {
-  var [entity, setEntity] = useState(new EntityDetailsClient());
+  var [entity, setEntity] = useState(new EntityDetailsClient()); const [waiting, setWaiting] = useState(false);
   const showSuccess = () =>
     toast.success(`Successfully created.`);
   const showFailure = () =>
@@ -23,7 +23,7 @@ function Create() {
 
   const handleNewEntity = async (e) => {
     e.preventDefault();
-    try {
+    try {  setWaiting(true)
       const response = await fetch(
         "http://localhost:8001/data-provider/v1/resource",
         {
@@ -34,7 +34,7 @@ function Create() {
           body: JSON.stringify(entity),
         }
       );
-      console.log(response);
+      setWaiting(false)
       if (response.status == 200) {
         console.log("Object posted successfully");
         showSuccess();
@@ -44,7 +44,7 @@ function Create() {
       }
     } catch (error) {
       console.error("Error occurred while posting object:", error);
-      showFailure();
+      showFailure(); setWaiting(false);
     }
   };
 
@@ -53,14 +53,14 @@ function Create() {
       <div className="card cardview text-center">
         <div className="card-body">
           <h3> Add a new %s </h3>
-          <button
+          {waiting ? <Spinner data-testid = "spinner"/> : <button
             className="btn btn-primary btn-dark"
             type="submit"
             onClick={handleNewEntity}
           >
             {" "}
              Submit {" "}
-          </button>
+          </button>}
         </div>
       </div>
       <ToastContainer

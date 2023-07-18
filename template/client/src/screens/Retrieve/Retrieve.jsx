@@ -86,7 +86,7 @@ const Retrieve = () => {
     <div className="Retrieve">
       <Header
         title="Retrieve"
-        description="Fetch all records, or look for them based on certain attributes"
+        description="Read all records, or look for them based on certain attributes"
       />
 
       <div className="options d-flex flex-row justify-content-evenly">
@@ -152,7 +152,7 @@ const Retrieve = () => {
 
       <div className="resultDisplay m-3">
         {waiting ? (
-          <Spinner />
+          <Spinner data-testid = "spinner"/>
         ) : results.length ? (
           <table className="table">
             <thead>

@@ -59,7 +59,7 @@ const Delete = () => {
           defaultValue={data}
         />
         {waiting ? (
-          <Spinner />
+          <Spinner data-testid = "spinner"/>
         ) : (
           <button className="btn btn-dark" onClick={deleteById}>
             Delete
