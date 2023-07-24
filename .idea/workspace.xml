@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bdcd01d-85cd-423e-a3b1-05799c855eef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ctridg/Models/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personcatfood.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/ctridg/Models/Association.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Models/Attribute.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Models/Field.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Models/Operation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Models/Parameter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Tools/BackendClassCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Tools/DocumentParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Tools/FrontEndElements/inputEntity.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Tools/FrontEndElements/submitEntity.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Generator/Tools/FrontendClassCreator.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ctridg/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ctridg/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ctridg/Tools/DocumentParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ctridg/Tools/DocumentParser.java" afterDir="false" />
     </list>
@@ -55,11 +45,17 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "Rebasing main",
     "last_opened_file_path": "/home/heliospook/Desktop/Generator"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="GeneratorApplication" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.ctridg.Main" />

@@ -1,4 +1,5 @@
 package org.ctridg.Tools;
+import org.ctridg.Models.Association;
 import org.ctridg.Models.Entity;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -21,6 +22,7 @@ public class DocumentParser {
     private String className;
 
     private List<Entity> entities;
+    private List<Association> associations;
 
     public DocumentParser(String filename){
         try{
@@ -78,24 +80,57 @@ public class DocumentParser {
         );
     }
 
+    private void parseAssociation(Element associationNode){
+        Association association = new Association();
+        association.setName(associationNode.getAttribute("Name"));
+        Element fromEnd = (Element) associationNode.getChildNodes().item(1).getChildNodes().item(1);
+        Element toEnd = (Element) associationNode.getChildNodes().item(3).getChildNodes().item(1);
+
+        association.setFromMultiplicity(fromEnd.getAttribute("Multiplicity"));
+        association.setFrom(((Element)fromEnd.getChildNodes().item(3).getChildNodes().item(1)).getAttribute("Name"));
+        association.setToMultiplicity(toEnd.getAttribute("Multiplicity"));
+        association.setTo(((Element)toEnd.getChildNodes().item(3).getChildNodes().item(1)).getAttribute("Name"));
+
+        associations.add(association);
+    }
 
     private void parse(String filename) throws ParserConfigurationException, SAXException, IOException{
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(new File(filename));
         NodeList modelList = document.getDocumentElement().getChildNodes().item(3).getChildNodes();
+
         List<Element> classNodes = new ArrayList<Element>();
+        NodeList associationNodes = null;
+
         for(int i=0;i<modelList.getLength();i++){
             Node node = modelList.item(i);
             if(node.getNodeType() == Node.ELEMENT_NODE){
                 Element element = (Element) node;
                 if(element.getNodeName().equals("Class")){
                     classNodes.add(element);
+                } else if(element.getNodeName().equals("ModelRelationshipContainer")){
+                    associationNodes = element.getChildNodes().item(1).getChildNodes().item(1).getChildNodes().item(1).getChildNodes();
                 }
             }
         }
+
         entities = new ArrayList<Entity>();
+        associations = new ArrayList<Association>();
+
         for(Element classNode : classNodes){
             parseClass(classNode);
+        }
+        if(associationNodes == null){
+            return;
+        }
+        for(int i=0;i<associationNodes.getLength();i++){
+            Node associationNode = associationNodes.item(i);
+            if(associationNode.getNodeType() == Node.ELEMENT_NODE){
+                Element element = (Element) associationNode;
+                if(element.getNodeName().equals("Association")){
+                    parseAssociation(element);
+                }
+            }
         }
     }
 
