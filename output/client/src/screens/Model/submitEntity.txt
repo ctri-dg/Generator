@@ -1,7 +1,0 @@
-<button
-    className="btn btn-primary btn-dark"
-    type="submit"
-    onClick={handleNewEntity}>
-    {" "}
-    Submit {" "}
-</button>
