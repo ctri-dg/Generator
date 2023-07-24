@@ -9,9 +9,9 @@ public class Main {
         for(Entity entity : parser.getEntities()){
             System.out.println(entity);
         }
-//        BackendClassCreator backendClassCreator = new BackendClassCreator(parser);
-//        backendClassCreator.create();
-//        FrontendClassCreator frontendClassCreator= new FrontendClassCreator(parser);
-//        frontendClassCreator.create();
+        BackendClassCreator backendClassCreator = new BackendClassCreator(parser);
+        backendClassCreator.create();
+        FrontendClassCreator frontendClassCreator= new FrontendClassCreator(parser);
+        frontendClassCreator.create();
     }
 }
