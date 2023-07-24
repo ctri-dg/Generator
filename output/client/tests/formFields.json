@@ -1,0 +1,14 @@
+[
+	{
+		"type" : "string",
+		"label" : "name"
+	},
+	{
+		"type" : "int",
+		"label" : "age"
+	},
+	{
+		"type" : "string",
+		"label" : "family"
+	}
+]

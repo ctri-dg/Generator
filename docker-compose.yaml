@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  naming-server:
+    image: naming-server:0.1
+    ports:
+      - "8761:8761"
+    networks:
+      - maintenance
+    restart : always
+
+  data-provider :
+    image: data-provider:0.1
+    ports:
+      - "8100:8100"
+    networks:
+      - maintenance
+    restart: always
+    depends_on:
+      - naming-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://naming-server:8761/eureka
+
+  api-gateway:
+    image: api-gateway:0.1
+    ports:
+      - "8001:8001"
+    networks:
+      - maintenance
+    depends_on:
+      - naming-server
+      - data-provider
+    restart : always
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://naming-server:8761/eureka
+
+  client:
+    image: ctri-dg/client
+    build:
+      context: './output/client/'
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api-gateway
+
+networks:
+  maintenance:
+    external:
+      name : maintenance
+

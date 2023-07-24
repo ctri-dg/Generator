@@ -1,0 +1,17 @@
+        <div className="input-group mb-3">
+            <label className="input-group-text" id="inputGroup-sizing-default">
+              %s %s
+            </label>
+            <input
+              className="form-control"
+              type="%s"
+              name="%s"
+              value={entity.%s}
+              placeholder="%s %s"
+              %s
+              onChange={handleEntityChange}
+              required
+              
+            />
+            <br/>
+        </div>

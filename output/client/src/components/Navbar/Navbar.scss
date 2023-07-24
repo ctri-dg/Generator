@@ -1,0 +1,9 @@
+@import '../../theme.scss';
+
+.Navbar{
+    height: 50px;
+    width: 100vw;
+    background-color: $c3;
+    position: fixed;
+    top : 0;
+}
