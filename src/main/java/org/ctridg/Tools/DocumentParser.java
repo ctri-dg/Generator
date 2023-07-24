@@ -1,4 +1,5 @@
 package org.ctridg.Tools;
+import org.ctridg.Models.Entity;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -19,6 +20,8 @@ public class DocumentParser {
     private List<String> searchAttributes;
     private String className;
 
+    private List<Entity> entities;
+
     public DocumentParser(String filename){
         try{
             parse(filename);
@@ -27,29 +30,15 @@ public class DocumentParser {
         }
     }
 
-    private void parse(String filename) throws ParserConfigurationException, SAXException, IOException{
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(new File(filename));
-        NodeList modelList = document.getDocumentElement().getChildNodes().item(3).getChildNodes();
-        Element classNode = null;
-        for(int i=0;i<modelList.getLength();i++){
-            Node node = modelList.item(i);
-            if(node.getNodeType() == Node.ELEMENT_NODE){
-                Element element = (Element) node;
-                if(element.getNodeName().equals("Class")){
-                    classNode = element;
-                    break;
-                }
-            }
-        }
+    private void parseClass(Element classNode){
         if(classNode == null) return;
         className = classNode.getAttribute("Name");
-        
+
         NodeList attributeList = classNode.getChildNodes().item(1).getChildNodes();
-        
+
         this.attributes = new ArrayList<Attribute>();
         this.operations = new ArrayList<Operation>();
-        
+
         for(int i=0;i<attributeList.getLength();i++){
             Node node = attributeList.item(i);
             if(node.getNodeType() == Node.ELEMENT_NODE){
@@ -78,6 +67,36 @@ public class DocumentParser {
             }
             searchAttributes.add(operation.getParameters().get(0).getName());
         }
+        entities.add(
+                new Entity(
+                        attributes,
+                        operations,
+                        idAttribute,
+                        searchAttributes,
+                        className
+                )
+        );
+    }
+
+
+    private void parse(String filename) throws ParserConfigurationException, SAXException, IOException{
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(new File(filename));
+        NodeList modelList = document.getDocumentElement().getChildNodes().item(3).getChildNodes();
+        List<Element> classNodes = new ArrayList<Element>();
+        for(int i=0;i<modelList.getLength();i++){
+            Node node = modelList.item(i);
+            if(node.getNodeType() == Node.ELEMENT_NODE){
+                Element element = (Element) node;
+                if(element.getNodeName().equals("Class")){
+                    classNodes.add(element);
+                }
+            }
+        }
+        entities = new ArrayList<Entity>();
+        for(Element classNode : classNodes){
+            parseClass(classNode);
+        }
     }
 
     public List<Attribute> getAttributes(){
@@ -94,5 +113,9 @@ public class DocumentParser {
     }
     public List<String> getSearchAttributes(){
         return searchAttributes;
+    }
+
+    public List<Entity> getEntities() {
+        return entities;
     }
 }
