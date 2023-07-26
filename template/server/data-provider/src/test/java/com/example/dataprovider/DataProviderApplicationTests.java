@@ -73,7 +73,7 @@ class DataProviderApplicationTests {
 						.content(asJsonString(branch1)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.city").value("Hyderabad"))
-				.andExpect(jsonPath("$.area").value("Malkajgiri));
+				.andExpect(jsonPath("$.area").value("Malkajgiri"));
 
 						verify(branchRepository, times(1)).save(any(Branch.class));
 		verify(branchRepository, times(1)).findById(1L);
